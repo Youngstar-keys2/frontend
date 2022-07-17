@@ -1,32 +1,26 @@
 import React from 'react';
 import { Placemark } from '@pbe/react-yandex-maps';
-import { BaseGeoObjectProps } from '@pbe/react-yandex-maps/typings/geo-objects/BaseGeoObject';
 
-import PlacemarkSvg from '../assets/svg/placemark.svg';
-
-interface IMapPlacemarkProps extends BaseGeoObjectProps {
-  defaultGeometry: Array<number>;
-  balloonContentHeader: string;
-  balloonContentBody: string;
-  balloonContentFooter: string;
+interface IMapPlacemarkProps {
+  coords: Array<number>;
+  name: string;
 }
 
 const MapPlacemark: React.FC<IMapPlacemarkProps> = (props) => {
   return (
     <Placemark
-      defaultGeometry={props.defaultGeometry}
+      defaultGeometry={props.coords}
       properties={{
-        balloonContentHeader: props.balloonContentHeader,
-        balloonContentBody: props.balloonContentBody,
-        balloonContentFooter: props.balloonContentFooter,
+        balloonContentHeader: props.name,
+        balloonContentFooter: `<a href=/company/${props.name
+          .split(' ')
+          .join('-')}>Подробнее</a>`,
       }}
       options={{
         hasBalloon: true,
         hideIconOnBalloonOpen: false,
-        balloonOffset: [4, -40],
+        balloonOffset: [-2, -5],
         preset: 'islands#grayCircleDotIcon',
-        iconLayout: 'default#image',
-        iconImageHref: PlacemarkSvg,
       }}
       modules={['geoObject.addon.balloon']}
     />

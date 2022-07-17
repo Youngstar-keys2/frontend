@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
-import Map from './components/Map';
+import Map from './pages/Map';
 
 import Auth from './pages/Auth';
 import Header from './components/Header';
 import styled from 'styled-components';
 import Registration from './pages/Registration';
 import Data from './pages/Data';
+import Company from './pages/Company';
 
 const StyledApp = styled.div`
   padding: 20px 0 60px;
@@ -23,7 +24,7 @@ const App: React.FC = () => {
   );
   return (
     <StyledApp>
-      <Header />
+      <Header token={token} />
       <Routes>
         <Route
           path="/auth"
@@ -33,12 +34,18 @@ const App: React.FC = () => {
           path="/registration"
           element={<Registration token={token} setToken={setToken} />}
         />
+        <Route path={'/data'} element={<Data token={token} />} />
         <Route
           path="/"
           element={
-            token ? <Data /> : <Auth token={token} setToken={setToken} />
+            token ? (
+              <Map token={token} />
+            ) : (
+              <Auth token={token} setToken={setToken} />
+            )
           }
         />
+        <Route path={'/company/:param'} element={<Company token={token} />} />
       </Routes>
     </StyledApp>
   );

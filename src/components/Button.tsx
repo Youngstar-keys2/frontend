@@ -9,6 +9,7 @@ const StyledButton = styled.button`
   border-radius: 10px;
   padding: 20px 90px;
   cursor: pointer;
+  color: #ffffff;
 `;
 
 const Button: React.FC<{ children: React.ReactNode }> = (props) => {
